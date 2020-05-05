@@ -72,8 +72,11 @@ section {
     display: flex;
 }
 
-.navbar__menu .menu__link.activeClass {
+.navbar__menu .activeClass {
     background: #230022;
+}
+
+.navbar__menu .activeClass li{
     color: #fffeee;
 }
 
