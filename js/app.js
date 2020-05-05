@@ -55,7 +55,7 @@ function addClass() {
     let isOnView = function (elem) {
         let windowOffset = elem.getBoundingClientRect();
         return (
-            windowOffset.top <= 50 &&
+            windowOffset.top >= -500 &&
             windowOffset.bottom <=
                 (window.innerHeight || document.documentElement.clientHeight) &&
                 windowOffset.right <=
