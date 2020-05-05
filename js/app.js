@@ -40,7 +40,7 @@ let navbarLinks;
 
 function addSections() {
     const sectionWrite = sectionArray.map((elem, i) => {
-        return `<a href="#${elem.id}"><li class='${elem.className} menu__link' key=${i} data-link='${elem.id}'>${elem.dataset.nav}</li></a>`;
+        return `<a id=${elem.id} href="#${elem.id}"><li class='${elem.className} menu__link' key=${i} data-link='${elem.id}'>${elem.dataset.nav}</li></a>`;
     });
     navbarUList.insertAdjacentHTML("beforeend", sectionWrite);
     navbarItems = document.querySelectorAll(".menu__link");
@@ -50,7 +50,7 @@ function addSections() {
 // Add class 'activeClass' to section when near top of viewport
 
 function addClass() {
-    let isInViewport = function (elem) {
+    let isOnView = function (elem) {
         let bounding = elem.getBoundingClientRect();
         return (
             bounding.top <= 50 &&
@@ -61,20 +61,22 @@ function addClass() {
         );
     };
 
-    for (i = 1; i < allSections + 1; i++) {
-        let sectionInFullView = document.getElementById("section" + i);
+    sectionArray.map((elem) =>{
         window.addEventListener(
             "scroll",
             function (event) {
-                if (isInViewport(sectionInFullView)) {
-                    sectionInFullView.classList.add("your-active-class");
+                if (isOnView(elem)) {
+                    elem.classList.add("your-active-class");
+                    document.querySelector(`a#${elem.id}`).classList.add("activeClass")
                 } else {
-                    sectionInFullView.classList.remove("your-active-class");
+                    elem.classList.remove("your-active-class");
+                    document.querySelector(`a#${elem.id}`).classList.remove("activeClass")
                 }
             },
             false
         );
-    }
+    });
+      
 }
 
 // Scroll to anchor ID using scrollTO event
