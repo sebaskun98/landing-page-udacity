@@ -21,6 +21,8 @@
 const allSections = document.querySelectorAll("section");
 const navbarUList = document.getElementById("navbar__list");
 const sectionArray = Array.from(allSections);
+const nav = document.getElementsByClassName("page__header");
+
 let navbarItems;
 let navbarLinks;
 
@@ -61,22 +63,25 @@ function addClass() {
         );
     };
 
-    sectionArray.map((elem) =>{
+    sectionArray.map((elem) => {
         window.addEventListener(
             "scroll",
             function (event) {
                 if (isOnView(elem)) {
                     elem.classList.add("your-active-class");
-                    document.querySelector(`a#${elem.id}`).classList.add("activeClass")
+                    document
+                        .querySelector(`a#${elem.id}`)
+                        .classList.add("activeClass");
                 } else {
                     elem.classList.remove("your-active-class");
-                    document.querySelector(`a#${elem.id}`).classList.remove("activeClass")
+                    document
+                        .querySelector(`a#${elem.id}`)
+                        .classList.remove("activeClass");
                 }
             },
             false
         );
     });
-      
 }
 
 // Scroll to anchor ID using scrollTO event
@@ -90,6 +95,17 @@ function clickAnchor() {
                 behavior: "smooth",
             });
         });
+    });
+}
+
+function hideNav() {
+    nav[0].classList.remove("showNav");
+    nav[0].classList.add("hideNav");
+
+    window.addEventListener("scroll", function () {
+        window.clearTimeout(timeout);
+        nav[0].classList.remove("hideNav");
+        nav[0].classList.add("showNav");
     });
 }
 
@@ -107,3 +123,11 @@ clickAnchor();
 
 // Set sections as active
 addClass();
+
+//Hiding navbar after 3 seconds of not scrolling
+let timeout 
+setInterval(function () {
+    timeout = setTimeout(function () {
+        hideNav();
+    }, 3000);
+}, 3000);
