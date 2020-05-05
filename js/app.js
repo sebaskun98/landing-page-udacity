@@ -42,7 +42,7 @@ let navbarLinks;
 
 function addSections() {
     const sectionWrite = sectionArray.map((elem, i) => {
-        return `<a id=${elem.id} href="#${elem.id}"><li class='${elem.className} menu__link' key=${i} data-link='${elem.id}'>${elem.dataset.nav}</li></a>`;
+        return `<a href="#${elem.id}"><li class='${elem.className} menu__link' key=${i} data-link='${elem.id}'>${elem.dataset.nav}</li></a>`;
     });
     navbarUList.insertAdjacentHTML("beforeend", sectionWrite);
     navbarItems = document.querySelectorAll(".menu__link");
