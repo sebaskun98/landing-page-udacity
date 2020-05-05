@@ -19,7 +19,10 @@
  */
 
 const allSections = document.querySelectorAll("section");
-const navbarList = document.getElementById("navbar__list");
+const navbarUList = document.getElementById("navbar__list");
+const sectionArray = Array.from(allSections);
+let navbarItems;
+let navbarLinks;
 
 /**
  * End Global Variables
@@ -36,20 +39,57 @@ const navbarList = document.getElementById("navbar__list");
 // build the nav
 
 function addSections() {
-    const sectionArray = Array.from(allSections);
     const sectionWrite = sectionArray.map((elem, i) => {
         return `<a href="#${elem.id}"><li class='${elem.className} menu__link' key=${i} data-link='${elem.id}'>${elem.dataset.nav}</li></a>`;
     });
-    navbarList.insertAdjacentHTML("beforeend", sectionWrite);
+    navbarUList.insertAdjacentHTML("beforeend", sectionWrite);
+    navbarItems = document.querySelectorAll(".menu__link");
+    navbarLinks = document.querySelectorAll("#navbar__list a");
 }
 
-// Add class 'active' to section when near top of viewport
+// Add class 'activeClass' to section when near top of viewport
 
 function addClass() {
-    window.addEventListener("scroll", function (event) {});
+    let isInViewport = function (elem) {
+        let bounding = elem.getBoundingClientRect();
+        return (
+            bounding.top <= 50 &&
+            bounding.bottom <=
+                (window.innerHeight || document.documentElement.clientHeight) &&
+            bounding.right <=
+                (window.innerWidth || document.documentElement.clientWidth)
+        );
+    };
+
+    for (i = 1; i < allSections + 1; i++) {
+        let sectionInFullView = document.getElementById("section" + i);
+        window.addEventListener(
+            "scroll",
+            function (event) {
+                if (isInViewport(sectionInFullView)) {
+                    sectionInFullView.classList.add("your-active-class");
+                } else {
+                    sectionInFullView.classList.remove("your-active-class");
+                }
+            },
+            false
+        );
+    }
 }
 
 // Scroll to anchor ID using scrollTO event
+
+function clickAnchor() {
+    const navbarLinksArray = Array.from(navbarLinks);
+    navbarLinksArray.map((a) => {
+        a.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(a.hash).scrollIntoView({
+                behavior: "smooth",
+            });
+        });
+    });
+}
 
 /**
  * End Main Functions
@@ -58,14 +98,10 @@ function addClass() {
  */
 
 // Build menu
-
-document.addEventListener("DOMContentLoaded", function (event) {
-    addSections();
-});
+addSections();
 
 // Scroll to section on link click
+clickAnchor();
 
 // Set sections as active
-document.addEventListener("DOMContentLoaded", function (event) {
-    addClass();
-});
+addClass();
