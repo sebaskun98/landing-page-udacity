@@ -236,6 +236,18 @@ section.your-active-class .landing__container::after {
     animation: rotate 5s linear 0s infinite forwards reverse;
 }
 
+.hideNav{
+    display: none;
+    transition-timing-function: ease-out;
+    transition: 0.25s;
+}
+
+.showNav{
+    display: block;
+    transition-timing-function: ease-in;
+    transition: 0.25s;
+}
+
 /* Section Active Styles Keyframe Animations */
 @keyframes rotate {
     from {
