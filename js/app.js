@@ -53,12 +53,12 @@ function addSections() {
 
 function addClass() {
     let isOnView = function (elem) {
-        let bounding = elem.getBoundingClientRect();
+        let windowOffset = elem.getBoundingClientRect();
         return (
-            bounding.top <= 50 &&
-            bounding.bottom <=
+            windowOffset.top <= 50 &&
+            windowOffset.bottom <=
                 (window.innerHeight || document.documentElement.clientHeight) &&
-            bounding.right <=
+                windowOffset.right <=
                 (window.innerWidth || document.documentElement.clientWidth)
         );
     };
@@ -131,3 +131,5 @@ setInterval(function () {
         hideNav();
     }, 3000);
 }, 3000);
+
+// source: https://stackoverflow.com/questions/22528190/hide-show-a-div-after-a-few-seconds
