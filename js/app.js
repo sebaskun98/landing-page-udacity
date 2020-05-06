@@ -58,25 +58,30 @@ function addClass() {
             windowOffset.top >= -500 &&
             windowOffset.bottom <=
                 (window.innerHeight || document.documentElement.clientHeight) &&
-                windowOffset.right <=
+            windowOffset.right <=
                 (window.innerWidth || document.documentElement.clientWidth)
         );
     };
 
     sectionArray.map((elem) => {
+        const navbarLinksArray = Array.from(navbarLinks);
         window.addEventListener(
             "scroll",
             function (event) {
                 if (isOnView(elem)) {
                     elem.classList.add("your-active-class");
-                    document
-                        .querySelector(`a#${elem.id}`)
-                        .classList.add("activeClass");
+                    navbarLinksArray.map((a) => {
+                        if(a.hash == `#${elem.id}`){
+                            a.classList.add("activeClass");
+                        }
+                    });
                 } else {
                     elem.classList.remove("your-active-class");
-                    document
-                        .querySelector(`a#${elem.id}`)
-                        .classList.remove("activeClass");
+                    navbarLinksArray.map((a) => {
+                        if(a.hash == `#${elem.id}`){
+                            a.classList.remove("activeClass");
+                        }
+                    });
                 }
             },
             false
@@ -125,7 +130,7 @@ clickAnchor();
 addClass();
 
 //Hiding navbar after 3 seconds of not scrolling
-let timeout 
+let timeout;
 setInterval(function () {
     timeout = setTimeout(function () {
         hideNav();
